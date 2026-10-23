@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Sitemap: https://gaurion.in/sitemap.xml

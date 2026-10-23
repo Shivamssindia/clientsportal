@@ -1,0 +1,29 @@
+{
+    "home": {
+        "video": "video/video01.mp4",
+        "badge": "Now Live — India's Premier Consulting OS",
+        "title": "<h1>India's <span className='g1'>Consulting</span><br/><span className='g2'>Operating System</span></h1>",
+        "desc": "Gaurion Bharat bridges enterprises and elite consultants through AI-powered matching, managed execution, and real-time impact dashboards — delivering measurable transformation.",
+        "buttons": {
+            "Explore": "Explore More",
+            "start": "Get Started"
+        },
+        "stats": [
+            {
+                "num": "300+",
+                "lbl": "Expert Consultants"
+            },
+            {
+                "num": "580+",
+                "lbl": "Projects Completed"
+            },
+            {
+                "num": "50+",
+                "lbl": "Expert Consultants"
+            }
+        ]
+    }
+}
+
+
+
