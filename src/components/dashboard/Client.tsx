@@ -257,11 +257,11 @@ const menuItems = [
 // ============================================
 
 const HARDCODED_DEPARTMENTS: Department[] = [
-  { departmentId: 55, departmentName: 'AI & Software Engineering' },
-  { departmentId: 3, departmentName: 'Business Development' },
-  { departmentId: 4, departmentName: 'Financial' },
-  { departmentId: 1, departmentName: 'HEAD' },
-  { departmentId: 2, departmentName: 'Human Resources' },
+  { departmentId: 5, departmentName: 'AI & Software Engineering' },
+  // { departmentId: 3, departmentName: 'Business Development' },
+  // { departmentId: 4, departmentName: 'Financial' },
+  // { departmentId: 1, departmentName: 'HEAD' },
+  // { departmentId: 2, departmentName: 'Human Resources' },
 ];
 
 // ============================================
@@ -744,7 +744,7 @@ const PaymentModal: React.FC<{
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const qrCodeUrl = "https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=upi://pay?pa=company@upi&pn=SoftMax&am=0&cu=INR";
+  const qrCodeUrl = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgBTsq51OXr3MFxbPrwmOAZFg2GRKmKmpG2AfWw6atFQT9igjFtHmy-qB-TFJgR21pXp6n0NMVA5jhLIYQ8E47GDIuz6jlcXurMypfzckBUpjIiUKc2j2Zy49IhYpNhe_u2kCkIYIWirDR79cuCIGbLLYs6FT1nIDOrBdN7nB_HdGV-owth466ifLvq8bY/s854/WhatsApp%20Image%202026-10-26%20at%204.38.42%20PM.jpeg";
 
   const handleSubmitPayment = async () => {
     if (!project) return;

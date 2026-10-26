@@ -36,7 +36,6 @@ const OurTechnologies: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
-  /* Rotate cube slowly */
   useEffect(() => {
     if (isPaused || !visible) return;
     const interval = setInterval(() => {
@@ -45,13 +44,11 @@ const OurTechnologies: React.FC = () => {
     return () => clearInterval(interval);
   }, [isPaused, visible]);
 
-  /* Track active index from rotation */
   useEffect(() => {
     const idx = Math.floor((rotation / 45) % technologies.length);
     setActiveIndex(idx < 0 ? idx + technologies.length : idx);
   }, [rotation]);
 
-  /* Observe visibility for animation trigger */
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -83,7 +80,6 @@ const OurTechnologies: React.FC = () => {
         id="technologies"
       >
         <div className="tech-inner">
-          {/* Header */}
           <div className="tech-header">
             <div className="tech-label">OUR TECHNOLOGY STACK</div>
             <h2 className="tech-title">
@@ -96,9 +92,7 @@ const OurTechnologies: React.FC = () => {
             </p>
           </div>
 
-          {/* Cube + Description */}
           <div className="tech-showcase">
-            {/* 3D CUBE */}
             <div
               className="cube-stage"
               onMouseEnter={() => setIsPaused(true)}
@@ -131,13 +125,8 @@ const OurTechnologies: React.FC = () => {
                 })}
               </div>
 
-              {/* Navigation dots */}
               <div className="cube-nav">
-                <button
-                  className="cube-btn"
-                  onClick={handlePrev}
-                  aria-label="Previous technology"
-                >
+                <button className="cube-btn" onClick={handlePrev} aria-label="Previous technology">
                   ←
                 </button>
                 <span className="cube-counter">
@@ -145,29 +134,20 @@ const OurTechnologies: React.FC = () => {
                   <span className="cube-counter-sep">/</span>{' '}
                   {String(technologies.length).padStart(2, '0')}
                 </span>
-                <button
-                  className="cube-btn"
-                  onClick={handleNext}
-                  aria-label="Next technology"
-                >
+                <button className="cube-btn" onClick={handleNext} aria-label="Next technology">
                   →
                 </button>
               </div>
             </div>
 
-            {/* Active tech details */}
             <div className="tech-detail">
               <div
                 className="detail-accent"
                 style={{ background: technologies[activeIndex].color }}
               />
-              <div className="detail-short">
-                {technologies[activeIndex].short}
-              </div>
+              <div className="detail-short">{technologies[activeIndex].short}</div>
               <h3 className="detail-name">{technologies[activeIndex].name}</h3>
-              <p className="detail-desc">
-                {technologies[activeIndex].description}
-              </p>
+              <p className="detail-desc">{technologies[activeIndex].description}</p>
 
               <div className="detail-stats">
                 <div className="detail-stat">
@@ -182,15 +162,11 @@ const OurTechnologies: React.FC = () => {
             </div>
           </div>
 
-          {/* Marquee ticker */}
           <div className="tech-ticker">
             <div className="tech-ticker-track">
               {[...technologies, ...technologies].map((tech, i) => (
                 <div key={i} className="tech-ticker-item">
-                  <span
-                    className="ticker-dot"
-                    style={{ background: tech.color }}
-                  />
+                  <span className="ticker-dot" style={{ background: tech.color }} />
                   <span className="ticker-name">{tech.name}</span>
                 </div>
               ))}
@@ -199,7 +175,7 @@ const OurTechnologies: React.FC = () => {
         </div>
       </section>
 
-      <style jsx>{`
+      <style>{`
         /* =============== SECTION =============== */
         .tech-sec {
           position: relative;
@@ -219,7 +195,6 @@ const OurTechnologies: React.FC = () => {
           z-index: 2;
         }
 
-        /* Ambient radial blobs */
         .tech-sec::before,
         .tech-sec::after {
           content: '';
@@ -231,12 +206,8 @@ const OurTechnologies: React.FC = () => {
           pointer-events: none;
           z-index: 1;
         }
-        .tech-sec.is-visible::before {
-          opacity: 0.35;
-        }
-        .tech-sec.is-visible::after {
-          opacity: 0.28;
-        }
+        .tech-sec.is-visible::before { opacity: 0.35; }
+        .tech-sec.is-visible::after { opacity: 0.28; }
         .tech-sec::before {
           width: 420px;
           height: 420px;
@@ -261,10 +232,7 @@ const OurTechnologies: React.FC = () => {
           transform: translateY(24px);
           transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
         }
-        .tech-sec.is-visible .tech-header {
-          opacity: 1;
-          transform: none;
-        }
+        .tech-sec.is-visible .tech-header { opacity: 1; transform: none; }
 
         .tech-label {
           display: inline-block;
@@ -289,9 +257,7 @@ const OurTechnologies: React.FC = () => {
           margin: 0 0 1rem;
         }
 
-        [data-theme='dark'] .tech-title {
-          color: #f0edff;
-        }
+        [data-theme='dark'] .tech-title { color: #f0edff; }
 
         .tech-accent {
           background: linear-gradient(135deg, #1bcbf4, #a05aff);
@@ -318,10 +284,7 @@ const OurTechnologies: React.FC = () => {
           transform: translateY(32px);
           transition: opacity 0.8s ease 0.25s, transform 0.8s ease 0.25s;
         }
-        .tech-sec.is-visible .tech-showcase {
-          opacity: 1;
-          transform: none;
-        }
+        .tech-sec.is-visible .tech-showcase { opacity: 1; transform: none; }
 
         /* =============== 3D CUBE =============== */
         .cube-stage {
@@ -333,16 +296,15 @@ const OurTechnologies: React.FC = () => {
           justify-content: center;
           perspective: 1400px;
           user-select: none;
+          /* FIX 1: Contain 3D faces inside this box */
+          overflow: hidden;
+          isolation: isolate;
         }
 
         .cube-glow {
           position: absolute;
           inset: 10% 15%;
-          background: radial-gradient(
-            circle at center,
-            rgba(27, 203, 244, 0.15),
-            transparent 65%
-          );
+          background: radial-gradient(circle at center, rgba(27, 203, 244, 0.15), transparent 65%);
           filter: blur(50px);
           animation: pulseGlow 4s ease-in-out infinite;
           pointer-events: none;
@@ -359,6 +321,7 @@ const OurTechnologies: React.FC = () => {
           height: 220px;
           transform-style: preserve-3d;
           transition: transform 1.1s cubic-bezier(0.25, 0.8, 0.25, 1);
+          z-index: 1;
         }
 
         .cube-face {
@@ -374,6 +337,7 @@ const OurTechnologies: React.FC = () => {
           align-items: center;
           justify-content: center;
           backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
           transition: box-shadow 0.4s ease;
         }
 
@@ -383,8 +347,7 @@ const OurTechnologies: React.FC = () => {
         }
 
         .cube-face-active {
-          box-shadow: 0 30px 80px rgba(27, 203, 244, 0.25),
-            0 0 0 1px var(--tech-color);
+          box-shadow: 0 30px 80px rgba(27, 203, 244, 0.25), 0 0 0 1px var(--tech-color);
         }
 
         .cube-face-inner {
@@ -413,30 +376,21 @@ const OurTechnologies: React.FC = () => {
           letter-spacing: 0.02em;
         }
 
-        [data-theme='dark'] .cube-name {
-          color: #f0edff;
-        }
+        [data-theme='dark'] .cube-name { color: #f0edff; }
 
         .cube-face-glow {
           position: absolute;
           inset: -1px;
           border-radius: 20px;
-          background: radial-gradient(
-            circle at 30% 20%,
-            var(--tech-color),
-            transparent 60%
-          );
+          background: radial-gradient(circle at 30% 20%, var(--tech-color), transparent 60%);
           opacity: 0;
           transition: opacity 0.4s ease;
           pointer-events: none;
           mix-blend-mode: screen;
         }
 
-        .cube-face-active .cube-face-glow {
-          opacity: 0.12;
-        }
+        .cube-face-active .cube-face-glow { opacity: 0.12; }
 
-        /* Cube nav */
         .cube-nav {
           display: flex;
           align-items: center;
@@ -478,15 +432,14 @@ const OurTechnologies: React.FC = () => {
           text-align: center;
         }
 
-        .cube-counter-sep {
-          opacity: 0.4;
-          margin: 0 0.2rem;
-        }
+        .cube-counter-sep { opacity: 0.4; margin: 0 0.2rem; }
 
         /* =============== DETAIL PANEL =============== */
         .tech-detail {
           position: relative;
           padding: 2.2rem 0 0 2.2rem;
+          /* FIX 2: Keep detail text on top of any 3D face that might leak */
+          z-index: 3;
         }
 
         .detail-accent {
@@ -518,9 +471,7 @@ const OurTechnologies: React.FC = () => {
           margin: 0 0 1rem;
         }
 
-        [data-theme='dark'] .detail-name {
-          color: #f0edff;
-        }
+        [data-theme='dark'] .detail-name { color: #f0edff; }
 
         .detail-desc {
           font-size: 0.95rem;
@@ -579,9 +530,7 @@ const OurTechnologies: React.FC = () => {
           white-space: nowrap;
         }
 
-        .tech-ticker:hover .tech-ticker-track {
-          animation-play-state: paused;
-        }
+        .tech-ticker:hover .tech-ticker-track { animation-play-state: paused; }
 
         .tech-ticker-item {
           display: flex;
@@ -605,9 +554,7 @@ const OurTechnologies: React.FC = () => {
           transition: color 0.2s ease;
         }
 
-        .tech-ticker-item:hover .ticker-name {
-          color: var(--text, #0c1018);
-        }
+        .tech-ticker-item:hover .ticker-name { color: var(--text, #0c1018); }
 
         @keyframes techScroll {
           from { transform: translateX(0); }
@@ -616,95 +563,30 @@ const OurTechnologies: React.FC = () => {
 
         /* =============== RESPONSIVE =============== */
         @media (max-width: 900px) {
-          .tech-showcase {
-            grid-template-columns: 1fr;
-            gap: 2.5rem;
-          }
-
-          .cube-stage {
-            height: 380px;
-          }
-
-          .cube-rotator,
-          .cube-face {
-            width: 190px;
-            height: 190px;
-          }
-
-          .tech-detail {
-            padding-left: 1.4rem;
-            text-align: center;
-          }
-
-          .detail-accent {
-            display: none;
-          }
-
-          .detail-desc {
-            margin-left: auto;
-            margin-right: auto;
-          }
-
-          .detail-stats {
-            justify-content: center;
-          }
+          .tech-showcase { grid-template-columns: 1fr; gap: 2.5rem; }
+          .cube-stage { height: 380px; }
+          .cube-rotator, .cube-face { width: 190px; height: 190px; }
+          .tech-detail { padding-left: 1.4rem; text-align: center; }
+          .detail-accent { display: none; }
+          .detail-desc { margin-left: auto; margin-right: auto; }
+          .detail-stats { justify-content: center; }
         }
 
         @media (max-width: 640px) {
-          .tech-sec {
-            padding: 4rem clamp(0.9rem, 3.5vw, 1.4rem) 3.5rem;
-          }
-
-          .cube-stage {
-            height: 340px;
-          }
-
-          .cube-rotator,
-          .cube-face {
-            width: 160px;
-            height: 160px;
-          }
-
-          .cube-short {
-            font-size: 2.2rem;
-          }
-
-          .cube-name {
-            font-size: 0.72rem;
-          }
-
-          .cube-nav {
-            margin-top: 1.8rem;
-            gap: 0.8rem;
-          }
-
-          .cube-btn {
-            width: 38px;
-            height: 38px;
-            font-size: 1rem;
-          }
-
-          .detail-stats {
-            flex-direction: column;
-            gap: 1rem;
-            padding-top: 1.2rem;
-          }
-
-          .tech-ticker-track {
-            gap: 2rem;
-            animation-duration: 35s;
-          }
-
-          .ticker-name {
-            font-size: 0.75rem;
-          }
+          .tech-sec { padding: 4rem clamp(0.9rem, 3.5vw, 1.4rem) 3.5rem; }
+          .cube-stage { height: 340px; }
+          .cube-rotator, .cube-face { width: 160px; height: 160px; }
+          .cube-short { font-size: 2.2rem; }
+          .cube-name { font-size: 0.72rem; }
+          .cube-nav { margin-top: 1.8rem; gap: 0.8rem; }
+          .cube-btn { width: 38px; height: 38px; font-size: 1rem; }
+          .detail-stats { flex-direction: column; gap: 1rem; padding-top: 1.2rem; }
+          .tech-ticker-track { gap: 2rem; animation-duration: 35s; }
+          .ticker-name { font-size: 0.75rem; }
         }
 
-        /* =============== REDUCED MOTION =============== */
         @media (prefers-reduced-motion: reduce) {
-          .cube-rotator,
-          .tech-ticker-track,
-          .cube-glow {
+          .cube-rotator, .tech-ticker-track, .cube-glow {
             animation: none !important;
             transition: none !important;
           }
